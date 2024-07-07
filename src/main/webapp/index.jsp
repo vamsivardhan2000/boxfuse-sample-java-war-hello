@@ -82,7 +82,7 @@
     <script>
         function showSubItems(category) {
             var subItems = {
-                Biryani: ['Chicken Biryani', 'Mutton Biryani', 'tofu fry'],
+                Biryani: ['Chicken Biryani', 'egg beer', 'tofu fry'],
                 Curries: ['Butter Chicken', 'Palak Paneer', 'Chana Masala'],
                 Pizzas: ['Margherita', 'Pepperoni', 'BBQ Chicken'],
                 Starters: ['Paneer Tikka', 'crispy corn', 'Spring Rolls']
