@@ -4,7 +4,7 @@ pipeline {
       stages{
             stage("GIT checkout"){
             steps{
-                 git 'https://github.com/vamsivardhan2000/boxfuse-sample-java-war-hello.git'
+                git credentialsId: 'e81cdc0e-9147-454a-a53c-b1040c10ebe1', url: 'https://github.com/vamsivardhan2000/boxfuse-sample-java-war-hello.git'
               }
             }
             stage("build"){
