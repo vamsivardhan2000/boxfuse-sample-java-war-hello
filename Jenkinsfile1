@@ -5,7 +5,7 @@ pipeline {
     stages {
         stage('Git checkout') {
             steps {
-                git credentialsId: 'Git-2', url: 'https://github.com/ankureddy/boxfuse-sample-java-war-hello.git'
+                git credentialsId: 'Git-2', url: 'https://github.com/vamsivardhan2000/boxfuse-sample-java-war-hello.git'
             }
         }
         stage('Compile') {
@@ -23,11 +23,11 @@ pipeline {
             steps {
                 sshagent(['tomcat-new']) {
                 sh """
-                    scp -o StrictHostKeyChecking=no target/myweb.war ubuntu@172.31.14.249:/home/ubuntu/tomcat8/webapps/
+                    scp -o StrictHostKeyChecking=no target/myweb.war ubuntu@172.31.14.249:/home/ubuntu/vamsi/webapps/
                     
-                    ssh ubuntu@172.31.14.249 /home/ubuntu/tomcat8/bin/shutdown.sh
+                    ssh ubuntu@172.31.14.249 /home/ubuntu/vamsi/bin/shutdown.sh
                     
-                    ssh ubuntu@172.31.14.249 /home/ubuntu/tomcat8/bin/startup.sh
+                    ssh ubuntu@172.31.14.249 /home/ubuntu/vamsi/bin/startup.sh
                 """
                 }
             } 
