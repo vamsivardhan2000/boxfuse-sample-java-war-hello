@@ -4,7 +4,7 @@ pipeline {
       stages{
             stage("GIT checkout"){
             steps{
-                git credentialsId: 'e81cdc0e-9147-454a-a53c-b1040c10ebe1', url: 'https://github.com/vamsivardhan2000/boxfuse-sample-java-war-hello.git'
+                 git 'https://github.com/RAJANI9/boxfuse-sample-java-war-hello.git'
               }
             }
             stage("build"){
@@ -18,13 +18,13 @@ pipeline {
                   steps{
                      
                        
-                       sshagent(['b5c6f429-1620-4e8c-9e1d-b80a0ee8d04d']) {
+                       sshagent(['TOMCAT']) {
                        
                        sh """
-                            scp -o StrictHostKeyChecking=no  target/boxfuse-sample-java-war-hello.war ubuntu@172.31.38.107:/home/ubuntu/apache-tomcat-9.0.91/webapps/
+                            scp -o StrictHostKeyChecking=no  target/boxfuse-sample-java-war-hello.war ubuntu@13.201.72.89:/home/ubuntu/apache-tomcat-9.0.87/webapps/
                             
-                            ssh ubuntu@172.31.38.107 /home/ubuntu/apache-tomcat-9.0.91/bin/shutdown.sh
-                            ssh ubuntu@172.31.38.107 /home/ubuntu/apache-tomcat-9.0.91/bin/startup.sh
+                            ssh ubuntu@13.201.72.89 /home/ubuntu/apache-tomcat-9.0.87/bin/shutdown.sh
+                            ssh ubuntu@13.201.72.89 /home/ubuntu/apache-tomcat-9.0.87/bin/startup.sh
                             
                           """
     
@@ -34,3 +34,4 @@ pipeline {
             }
        }
   }     
+
