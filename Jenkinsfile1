@@ -1,37 +1,36 @@
-pipeline {
-      agent any
-      
-      stages{
-            stage("GIT checkout"){
-            steps{
-                 git 'https://github.com/vamsivardhan2000/boxfuse-sample-java-war-hello.git'
-              }
-            }
-            stage("build"){
-                  steps{
-                       sh "mvn clean package"
-                       sh "mv target/*.war target/boxfuse-sample-java-war-hello.war"
-                      }
-                       
-            }
-             stage("depoly"){
-                  steps{
-                     
-                       
-                       sshagent(['TOMCAT']) {
-                       
-                       sh """
-                            scp -o StrictHostKeyChecking=no  target/boxfuse-sample-java-war-hello.war ubuntu@172.31.14.249:/home/ubuntu/apache-tomcat-9.0.91/webapps/
-                            
-                            ssh ubuntu@172.31.14.249 /home/ubuntu/apache-tomcat-9.0.91/bin/shutdown.sh
-                            ssh ubuntu@172.31.14.249 /home/ubuntu/apache-tomcat-9.0.91/bin/startup.sh
-                            
-                          """
-    
-}
-                      
-                       }
-            }
-       }
-  }     
 
+pipeline {
+    agent any
+
+    stages {
+        stage('Git checkout') {
+            steps {
+                git credentialsId: 'Git-2', url: 'https://github.com/ankureddy/boxfuse-sample-java-war-hello.git'
+            }
+        }
+        stage('Compile') {
+            steps {
+                sh"mvn clean compile"
+            }
+        }
+        stage('Build') {
+            steps {
+                sh"mvn clean package"
+                sh"mv target/*.war target/myweb.war"
+            }
+        }
+        stage('Deploy tomcat') {
+            steps {
+                sshagent(['tomcat-new']) {
+                sh """
+                    scp -o StrictHostKeyChecking=no target/myweb.war ubuntu@172.31.14.249:/home/ubuntu/tomcat8/webapps/
+                    
+                    ssh ubuntu@172.31.14.249 /home/ubuntu/tomcat8/bin/shutdown.sh
+                    
+                    ssh ubuntu@172.31.14.249 /home/ubuntu/tomcat8/bin/startup.sh
+                """
+                }
+            } 
+        }
+    }
+} 
